@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.6.RELEASE</version>
+    </parent>
+
+    <groupId>com.usp</groupId>
+    <artifactId>ums</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>ums-service</module>
+        <module>ums-api</module>
+    </modules>
+
+    <properties>
+        <java.version>11</java.version>
+        <java_source_version>11</java_source_version>
+        <java_target_version>11</java_target_version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <mybatis-plus.version>3.4.1</mybatis-plus.version>
+        <usp-framework.version>1.0.39-SNAPSHOT</usp-framework.version>
+        <usp-basis.version>1.0.4-SNAPSHOT</usp-basis.version>
+        <aliyun-cola.version>3.0.1</aliyun-cola.version>
+        <hutool.version>5.5.1</hutool.version>
+        <spring-cloud.version>Hoxton.SR10</spring-cloud.version>
+        <spring-cloud-alibaba.version>2.2.5.RELEASE</spring-cloud-alibaba.version>
+        <skywalking.version>8.6.0</skywalking.version>
+        <usp-idGenerator.version>1.0.4-SNAPSHOT</usp-idGenerator.version>
+        <usp-wms.version>1.0.3-SNAPSHOT</usp-wms.version>
+        <boss-client.version>1.0.1-SNAPSHOT</boss-client.version>
+        <!--        <dubbo.version>2.7.12</dubbo.version>-->
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>org.jdom</groupId>
+                <artifactId>jdom</artifactId>
+                <version>2.0.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.skywalking</groupId>
+                <artifactId>apm-toolkit-logback-1.x</artifactId>
+                <version>${skywalking.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.usp</groupId>
+                <artifactId>boss-client</artifactId>
+                <version>${boss-client.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.usp</groupId>
+                <artifactId>framework</artifactId>
+                <version>${usp-framework.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.shiro</groupId>
+                        <artifactId>shiro-spring-boot-web-starter</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>spqr</artifactId>
+                        <groupId>io.leangen.graphql</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>com.baomidou</artifactId>
+                        <groupId>dynamic-datasource-spring-boot-starter</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.usp</groupId>
+                <artifactId>basis-api</artifactId>
+                <version>${usp-basis.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.alibaba</groupId>
+                        <artifactId>fastjson</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!--            &lt;!&ndash; feign &ndash;&gt;-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.springframework.boot</groupId>-->
+            <!--                <artifactId>spring-boot-starter-web</artifactId>-->
+            <!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.springframework.cloud</groupId>-->
+            <!--                <artifactId>spring-cloud-starter-openfeign</artifactId>-->
+            <!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>io.github.openfeign</groupId>-->
+            <!--                <artifactId>feign-okhttp</artifactId>-->
+            <!--                <optional>true</optional>-->
+            <!--            </dependency>-->
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>0.9.1</version>
+            </dependency>
+
+            <!-- spring boot starter parent managed with latest version:
+            lombok, slf4j, commons-pool(2), commons-codec, commons-lang3,
+            httpclient-cache, httpcore, httpmime, javax.annotation-api,
+            jedis, mail-api, postgresql
+            -->
+
+            <!-- usp framework managed but with update:
+            modelmapper
+            -->
+            <dependency>
+                <groupId>org.modelmapper</groupId>
+                <artifactId>modelmapper</artifactId>
+                <version>2.3.9</version>
+            </dependency>
+
+            <!--============================ apache commons ==================== -->
+
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>1.9.4</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>4.4</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>1.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.mobile</groupId>
+                <artifactId>spring-mobile-device</artifactId>
+                <version>1.1.5.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alipay.sdk</groupId>
+                <artifactId>alipay-sdk-java</artifactId>
+                <version>3.4.49.ALL</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.8.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-net</groupId>
+                <artifactId>commons-net</artifactId>
+                <version>3.7.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-configuration2</artifactId>
+                <version>2.7</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcpkix-jdk15on</artifactId>
+                <version>1.67</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>1.13.1</version>
+            </dependency>
+
+            <!--============================ gson =========================== -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>30.0-jre</version>
+            </dependency>
+
+            <!-- mybatis -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-typehandlers-jsr310</artifactId>
+                <version>1.0.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alipay.sdk</groupId>
+                <artifactId>alipay-sdk-java</artifactId>
+                <version>3.4.49.ALL</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <!--mybatis-generator要用的模板-->
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity-engine-core</artifactId>
+                <version>2.2</version>
+            </dependency>
+
+            <!--mybatis-core-用到工具类-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-core</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>4.9.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>5.7.0</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!--poi-->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>3.15</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>3.15</version>
+            </dependency>
+
+            <!-- Nats Streaming dependency -->
+            <dependency>
+                <groupId>io.nats</groupId>
+                <artifactId>java-nats-streaming</artifactId>
+                <version>2.2.3</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>jnats</artifactId>
+                        <groupId>io.nats</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!-- hutool -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-core</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+            <!--cola架构-->
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>cola-common</artifactId>
+                <version>${aliyun-cola.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>cola-core</artifactId>
+                <version>${aliyun-cola.version}</version>
+            </dependency>
+            <!--            <dependency>-->
+            <!--                <groupId>org.apache.dubbo</groupId>-->
+            <!--                <artifactId>dubbo</artifactId>-->
+            <!--                <version>${dubbo.version}</version>-->
+            <!--            </dependency>-->
+
+            <!--feign不带连接池,使用okhttp来增强feign-->
+            <!--            <dependency>-->
+            <!--                <groupId>io.github.openfeign</groupId>-->
+            <!--                <artifactId>feign-okhttp</artifactId>-->
+            <!--                <version>10.10.1</version>-->
+            <!--            </dependency>-->
+        </dependencies>
+    </dependencyManagement>
+    <!--自动发布构建配置-->
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>libs-release-local</name>
+            <url>http://maven.youshupai.com/artifactory/libs-snapshot-local/</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>libs-snapshot-local</name>
+            <url>http://maven.youshupai.com/artifactory/libs-snapshot-local/</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>

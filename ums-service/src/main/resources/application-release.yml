@@ -1,0 +1,190 @@
+#服务器端口
+env: release
+server:
+  port: 29030
+  url: http://ums-release.youshupai.com/api
+  undertow:
+    accesslog:
+      enabled: true
+      prefix: access_log
+      suffix: .log
+  tomcat:
+    accesslog:
+      enabled: true
+      prefix: access_log
+      suffix: .log
+logging:
+  config: classpath:logback-dev.xml
+fake:
+  pre: FAKE-
+token:
+  admin:
+    expire: 14
+  fake:
+    expire: 1
+ip:
+  expire: 2
+my:
+  token:
+qrnum: 5
+
+spring:
+  mvc:
+    view:
+      suffix: .do
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://rm-uf656rcueks797xsg9o.mysql.rds.aliyuncs.com:3306/usp_ums_release?serverTimezone=GMT%2B8&useSSL=false&characterEncoding=UTF-8
+    username: usp_ums
+    password: YE0S8jRxKhN
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: DatebookHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 172.26.211.170:8848,172.26.211.171:8848,172.26.211.172:8848
+        namespace: 2756c03d-6127-4152-a253-4d44b11742ac
+  redis:
+    host: 172.19.162.178
+    port: 6379
+    database: 6
+    password:
+    timeout: 15000
+    lettuce:
+      pool:
+        max-active: 8 # 最大连接数量，默认8，能够同时建立的最大连接数
+        max-idle: 8 # 最大空闲连接数量，默认8，空闲连接数大于maxIdle时，将进行回收
+        max-wait: 1000 # 最大阻塞等待时间，默认-1
+        min-idle: 5 # 最小空闲数，默认0，低于minIdle时，将创建新的连接
+  cache:
+    type: redis
+    #认证缓存时间5反正
+    #默认换粗那时间1小时
+    timeout: "{auth:300, default:3600}"
+  nats:
+    js:
+      nats-urls:
+        - nats://47.102.97.94:4228
+        - nats://47.102.152.254:4228
+        - nats://47.102.148.153:4228
+      jwt: eyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiIySDVDTEZWQ1ZDMk9FNElUNVRFWVBaNzIzQkkyVURLUFJNQ0hSR0RCTFhVNkJNR0ZFWTJBIiwiaWF0IjoxNjMxNTg2NDk0LCJpc3MiOiJBREs1TjRQNEQ2UktTNlRRUjVKR1FYU1VDWU5MQ0FYWEdaVTdOU0FLV0dNSElPWEg1QzQ1UDdGQyIsIm5hbWUiOiJ1cHMiLCJzdWIiOiJVRFRQT0M0UE9KUUpVUEFJNEI1UE5GNDVJSE1RVkFPWTVMT1lWQlJMWVRDS0tCSFI0NVNOQUI1RCIsIm5hdHMiOnsicHViIjp7fSwic3ViIjp7fSwic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjotMSwidHlwZSI6InVzZXIiLCJ2ZXJzaW9uIjoyfX0.xj04ISPhjKCEX5-o7B_n2Mc4Hktn5l8VjNWDiGloVwFdDOzWVUkojvfbXnlT6d-Z_pNVDQos3F7zNfZUvRwlBQ
+      nkey: SUAFGOQRRQEQG34I2XQRFQWGNABO6TDEBVYTGAFUL6Q25OGQ7BABE6JKUM
+
+
+  # 输出
+  # 配置ANSI输出（可以是“detect”，“always”，“never”）-->“检测”，“永远”，“从不”
+  output:
+    ansi:
+      enabled: DETECT
+  # JavaMailSender
+  mail:
+    host: smtp.qq.com
+    port: 25
+    username:
+    password:
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+email:
+  sender:
+  receiver:
+
+mybatis-plus:
+  #  config-location: classpath:META-INF/mybatis-config.xml
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  typeEnumsPackage: com.usp.ums.enums
+  type-aliases-package: com.usp.ums.entity
+  type-handlers-package: com.usp.framework.mybatis,com.usp.ums.entity
+  global-config:
+    banner: false
+    refresh: true
+    db-config:
+      #主键类型  AUTO:"数据库ID自增", INPUT:"用户输入ID",ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
+      id-type: AUTO
+      #字段策略 IGNORED:"忽略判断",NOT_NULL:"非 NULL 判断"),NOT_EMPTY:"非空判断"
+      field-strategy: NOT_EMPTY
+      #驼峰下划线转换
+      db-type: mysql
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      #数据库大写下划线转换
+      #capital-mode: true
+      #super-mapper-class: com.zhixin.framework.mapper.BaseMapper
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    auto-mapping-behavior: FULL
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+dubbo:
+  cloud:
+    subscribed-services: usp-basis
+  application:
+    name: usp-ums
+  registry:
+    #    address: spring-cloud://localhost # 注册中心
+    #如果要使用自己创建的命名空间可以使用下面2种方式
+    #dubbo.registry.address = nacos://127.0.0.1:8848?namespace=5cbb70a5-xxx-xxx-xxx-d43479ae0932
+    #dubbo.registry.parameters.namespace=5cbb70a5-xxx-xxx-xxx-d43479ae0932
+    address: nacos://172.26.211.170:8848?namespace=2756c03d-6127-4152-a253-4d44b11742ac&backup=172.26.211.171:8848,172.26.211.172:8848 # 注册中心
+    check: false
+  protocols:
+    dubbo:
+      name: dubbo # 服务协议
+      port: 29130 # 服务端口
+  consumer:
+    check: false
+
+
+knife4j:
+  enable: true
+  cors: true
+  markdowns: classpath:markdown2x/*
+
+jwt:
+  #  header: Authorization
+  token:
+    secret: 3AHLGP6wlAki0pBuQg3p19Z6TWEIGQfc2ayJY326
+    #    7天
+    #    expiration: 604800
+
+    #    一年
+    expiration: 31536000
+
+xxl:
+  job:
+    admin:
+      addresses: http://172.26.211.152:9080/admin
+    accessToken:
+    executor:
+      appname: xxl-job-ums-release
+      address:
+      ip: 172.19.158.137
+      port: 29230
+      logpath:
+      logretentiondays: 30
+
+boss-token:
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    password:
+    timeout: 15000s
+    lettuce:
+      pool:
+        max-active: 8 # 最大连接数量，默认8，能够同时建立的最大连接数
+        max-idle: 8 # 最大空闲连接数量，默认8，空闲连接数大于maxIdle时，将进行回收
+        max-wait: 1000 # 最大阻塞等待时间，默认-1
+        min-idle: 5 # 最小空闲数，默认0，低于minIdle时，将创建新的连接
